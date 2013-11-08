@@ -17,8 +17,12 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Relevant code
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     WidgetContainer *container = [WidgetContainer insertNewObjectIntoContext:self.managedObjectContext];
     [container addObserver:self forKeyPath:NSStringFromSelector(@selector(widget)) options:0 context:nil];
@@ -42,10 +46,6 @@
     Widget *widget = (Widget *)container.widget;
     NSLog(@"Widget part: %@", widget.part);
 
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     return YES;
 }
 
@@ -58,6 +58,21 @@
     NSLog(@"Widget part: %@", newWidget.part);
     NSLog(@"End observeValueForKeyPath:ofObject:change:context:");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extra Stuff
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
