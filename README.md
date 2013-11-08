@@ -1,4 +1,4 @@
-This is a demo project to display an interesting behavior of nested NSManagedObjectContexts.
+This is a demo project to display an inconsistent behavior of nested NSManagedObjectContexts.
 
 Given the following model:
 
@@ -18,7 +18,7 @@ with WidgetContainer having a to-one relationship to Widget and Widget having a 
 6. Save the child managed object context.
 7. observeValueForKeyPath:ofObject:change:context: is called prior to the child managed object context completing its save.
 8. Within observeValueForKeyPath:ofObject:change:context:, access the WidgetContainer's widget relationship.
-9. The widget will have it's attributes set correctly, but **_it's part relationship will be emtpy_**.
+9. The widget will have it's attributes set correctly, but **_its part relationship may or may not be nil_**.
 10. Once the child context save is complete, the widget's part relationship will be correct.
 
 See the relevant code [here](https://github.com/bismark/ChildContextBug/blob/master/ChildContextBug/AppDelegate.m).
