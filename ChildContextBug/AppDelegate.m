@@ -25,9 +25,7 @@
 
     NSManagedObjectContext *childMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     childMoc.parentContext = self.managedObjectContext;
-    NSError *error;
     WidgetContainer *childContainer = (WidgetContainer *)[childMoc objectWithID:container.objectID];
-    error = nil;
 
     Widget *newWidget = [Widget insertNewObjectIntoContext:childMoc];
     newWidget.name = @"New Widget";
@@ -38,10 +36,10 @@
     part1.widget = newWidget;
 
     NSLog(@"Start saving child context");
-    [childMoc save:&error];
+    [childMoc save:nil];
     NSLog(@"End saving child context");
 
-    Widget *widget = (Widget *)container.widget;//s.allObjects.firstObject;
+    Widget *widget = (Widget *)container.widget;
     NSLog(@"Widget part: %@", widget.part);
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -56,7 +54,7 @@
 
     NSLog(@"Start observeValueForKeyPath:ofObject:change:context:");
     WidgetContainer *container = (WidgetContainer *)object;
-    Widget *newWidget = (Widget *)container.widget;//s.allObjects.firstObject;
+    Widget *newWidget = (Widget *)container.widget;
     NSLog(@"Widget part: %@", newWidget.part);
     NSLog(@"End observeValueForKeyPath:ofObject:change:context:");
 }
