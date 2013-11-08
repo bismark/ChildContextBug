@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Widget" representedClassName="Widget" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="container" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WidgetContainer" inverseName="widgets" inverseEntity="WidgetContainer" syncable="YES"/>
+        <relationship name="parts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WidgetPart" inverseName="widget" inverseEntity="WidgetPart" syncable="YES"/>
+    </entity>
+    <entity name="WidgetContainer" representedClassName="WidgetContainer" syncable="YES">
+        <relationship name="widgets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Widget" inverseName="container" inverseEntity="Widget" syncable="YES"/>
+    </entity>
+    <entity name="WidgetPart" representedClassName="WidgetPart" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="widget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Widget" inverseName="parts" inverseEntity="Widget" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="WidgetContainer" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Widget" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="WidgetPart" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
