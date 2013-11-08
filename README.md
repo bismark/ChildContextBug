@@ -20,3 +20,5 @@ with WidgetContainer having a to-one relationship to Widget and Widget having a 
 8. Within observeValueForKeyPath:ofObject:change:context:, access the WidgetContainer's widget relationship.
 9. The widget will have it's attributes set correctly, but **_it's part relationship will be emtpy_**.
 10. Once the child context save is complete, the widget's part relationship will be correct.
+
+See the relevant code [here](https://github.com/bismark/ChildContextBug/blob/master/ChildContextBug/AppDelegate.m).
