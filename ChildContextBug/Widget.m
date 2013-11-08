@@ -16,11 +16,7 @@
 
 @dynamic name;
 @dynamic container;
-@dynamic parts;
-
-- (NSMutableSet *)mutableParts {
-    return [self mutableSetValueForKey:NSStringFromSelector(@selector(parts))];
-}
+@dynamic part;
 
 + (NSString *)entityName {
     return @"Widget";

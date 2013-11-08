@@ -15,7 +15,6 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) WidgetContainer *container;
-@property (nonatomic, retain) NSSet *parts;
-@property (nonatomic, readonly) NSMutableSet *mutableParts;
+@property (nonatomic, retain) WidgetPart *part;
 @end
 

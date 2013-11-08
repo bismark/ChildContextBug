@@ -12,7 +12,7 @@
 
 @interface WidgetContainer : BaseEntity
 
-@property (nonatomic, retain) NSSet *widgets;
-@property (nonatomic, readonly) NSMutableSet *mutableWidgets;
+@property (nonatomic, retain) Widget *widget;
+
 @end
 

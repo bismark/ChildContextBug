@@ -12,11 +12,7 @@
 
 @implementation WidgetContainer
 
-@dynamic widgets;
-
-- (NSMutableSet *)mutableWidgets {
-    return [self mutableSetValueForKey:NSStringFromSelector(@selector(widgets))];
-}
+@dynamic widget;
 
 + (NSString *)entityName {
     return @"WidgetContainer";

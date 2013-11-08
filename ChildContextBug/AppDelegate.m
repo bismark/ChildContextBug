@@ -21,7 +21,7 @@
 
 
     WidgetContainer *container = [WidgetContainer insertNewObjectIntoContext:self.managedObjectContext];
-    [container addObserver:self forKeyPath:NSStringFromSelector(@selector(widgets)) options:0 context:nil];
+    [container addObserver:self forKeyPath:NSStringFromSelector(@selector(widget)) options:0 context:nil];
 
     NSManagedObjectContext *childMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     childMoc.parentContext = self.managedObjectContext;
@@ -31,23 +31,18 @@
 
     Widget *newWidget = [Widget insertNewObjectIntoContext:childMoc];
     newWidget.name = @"New Widget";
-    [childContainer.mutableWidgets addObject:newWidget];
+    newWidget.container = childContainer;
 
     WidgetPart *part1 = [WidgetPart insertNewObjectIntoContext:childMoc];
-    part1.name = @"Part 1";
-    [newWidget.mutableParts addObject:part1];
-
-    WidgetPart *part2 = [WidgetPart insertNewObjectIntoContext:childMoc];
-    part2.name = @"Part 1";
-    [newWidget.mutableParts addObject:part2];
+    part1.name = @"New Part";
+    part1.widget = newWidget;
 
     NSLog(@"Start saving child context");
     [childMoc save:&error];
     NSLog(@"End saving child context");
 
-    Widget *widget = (Widget *)container.widgets.allObjects.firstObject;
-    NSLog(@"Number of parts: %d", widget.parts.count);
-
+    Widget *widget = (Widget *)container.widget;//s.allObjects.firstObject;
+    NSLog(@"Widget part: %@", widget.part);
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -61,8 +56,8 @@
 
     NSLog(@"Start observeValueForKeyPath:ofObject:change:context:");
     WidgetContainer *container = (WidgetContainer *)object;
-    Widget *newWidget = (Widget *)container.widgets.allObjects.firstObject;
-    NSLog(@"Number of parts: %d", newWidget.parts.count);
+    Widget *newWidget = (Widget *)container.widget;//s.allObjects.firstObject;
+    NSLog(@"Widget part: %@", newWidget.part);
     NSLog(@"End observeValueForKeyPath:ofObject:change:context:");
 }
 
@@ -120,7 +115,9 @@
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"ChildContextBug.sqlite"];
-    
+
+    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
